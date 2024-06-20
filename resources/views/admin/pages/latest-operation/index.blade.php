@@ -3,30 +3,32 @@
 @section('title', 'اخر العمليات علي النظام')
 
 @section('body')
-    <div class="container">
-        <!-- Container-fluid starts-->
-        <div class="container-fluid">
-            <div class="page-header">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="page-header-left">
-                            <h3 style="color: rgb(236, 73, 73)"> اخر العمليات
-                            </h3>
-                        </div>
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="page-header-left">
+                        <h3 style="color: rgb(236, 73, 73)"> اخر العمليات
+                        </h3>
                     </div>
-                    <div class="col-lg-6">
-                        <ol class="breadcrumb pull-right">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('admin.welcome') }}">
-                                    <i data-feather="home"></i>
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item active">اخر العمليات</li>
-                        </ol>
-                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ol class="breadcrumb pull-right">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('admin.welcome') }}">
+                                <i data-feather="home"></i>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active">اخر العمليات</li>
+                    </ol>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container">
+        <br><br>
+        <!-- Container-fluid starts-->
+
         <!-- Container-fluid Ends-->
         <div class="row">
             <div class="col-xl-8 mb-30">
@@ -51,7 +53,7 @@
         </div>
 
         <div class="row parent">
-            <div style="height: 400px;" class="col-xl-12 mb-30">
+            <div  class="col-xl-12 mb-30">
                 <div class="tab-content">
 
                     <div class="tab-pane fade show active etab-p1">
@@ -70,7 +72,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse (\App\Models\User::latest()->take(5)->get() as $user)
+                                    @forelse (\App\Models\User::latest()->take(10)->get() as $user)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td> <a
@@ -106,7 +108,7 @@
                                                                     class="fa fa-trash"></i></button>
                                                         </form>
 
-                                                        <div class="dropdown-divider"></div>
+
 
                                                         @if ($user->status == 'blocked')
                                                             <a class="dropdown-item"
@@ -148,7 +150,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse (\App\Models\Store::latest()->take(5)->get() as $store)
+                                    @forelse (\App\Models\Store::latest()->take(10)->get() as $store)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td> <a
@@ -186,7 +188,7 @@
                                                                     class="fa fa-trash"></i></button>
                                                         </form>
 
-                                                        <div class="dropdown-divider"></div>
+
 
                                                         <a class="dropdown-item"
                                                             href="{{ route('admin.stores.block', $store->id) }}">تقييد<i
@@ -219,7 +221,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse (\App\Models\Charity::latest()->take(5)->get() as $charity)
+                                    @forelse (\App\Models\Charity::latest()->take(10)->get() as $charity)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td> <a
@@ -250,14 +252,15 @@
                                                         <a class="dropdown-item"
                                                             href="{{ route('admin.charities.destroy', $charity->id) }}">حذف<i
                                                                 class="fa fa-trash"></i></a>
-                                                        <div class="dropdown-divider"></div>
-                                                        @if($charity->status =="blocked")
-                                                        <a class="dropdown-item"
-                                                        href="{{ route('admin.charities.active', $charity->id) }}">فك التقييد<i class="fa fa-undo" aria-hidden="true"></i></a>
+
+                                                        @if ($charity->status == 'blocked')
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.charities.active', $charity->id) }}">فك
+                                                                التقييد<i class="fa fa-undo" aria-hidden="true"></i></a>
                                                         @else
-                                                        <a class="dropdown-item"
-                                                        href="{{ route('admin.charities.block', $charity->id) }}">تقييد<i
-                                                            class="fa fa-stop"></i></a>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('admin.charities.block', $charity->id) }}">تقييد<i
+                                                                    class="fa fa-stop"></i></a>
                                                         @endif
 
                                                     </div>
@@ -287,7 +290,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse (\App\Models\Order::latest()->take(5)->get() as $order)
+                                    @forelse (\App\Models\Order::latest()->take(10)->get() as $order)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td> {{ $order->name }}</td>
@@ -328,10 +331,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse (\App\Models\Withdrawal::latest()->take(5)->get() as $withdrawal)
+                                    @forelse (\App\Models\Withdrawal::latest()->take(10)->get() as $withdrawal)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td> {{ $withdrawal->store->name ?? 'المتجر محذوف'}}</td>
+                                            <td> {{ $withdrawal->store->name ?? 'المتجر محذوف' }}</td>
                                             <td>{{ $withdrawal->amount }}</td>
                                             <td>{{ $withdrawal->method->name }}</td>
                                             <td class="badge badge-pill"

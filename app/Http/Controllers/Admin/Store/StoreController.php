@@ -18,15 +18,21 @@ class StoreController extends Controller
         return view('admin.pages.stores.index');
     }
 
-    public function getallApproved()
+    public function getallApproved(Request $request)
     {
-        $users = Store::with(['governorate', 'city'])->where('status', 'approved')->select('*');
+        $query = Store::with(['governorate', 'city'])->where('status', 'approved')->select('*');
 
+        if ($request->has('date') && !empty($request->date)) {
+            $date = $request->date;
+            $query->whereDate('created_at', $date);
+        }
+
+        $users = $query->get();
         return DataTables::of($users)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
                 return '<div class="btn-group">
-                <button type="button" class="btn btn-secondary btn-sm  dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <button type="button" class="btn btn-secondary btn-md  dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                    العمليات
                 </button>
                 <div class="dropdown-menu ">
@@ -47,9 +53,12 @@ class StoreController extends Controller
             ->addColumn('city', function ($row) {
                 return $row->city->name;
             })
+            ->addColumn('created', function ($row) {
+                return $row->created_at->format('Y-m-d h:m');
+            })
 
 
-            ->rawColumns(['image', 'action', 'governorate', 'city'])
+            ->rawColumns(['image', 'action', 'governorate', 'city' , 'created'])
             ->Make(true);
 
     }

@@ -34,7 +34,7 @@ id="layout-navbar">
                             <div class="d-flex">
                                 <div class="me-3">
                                     {{-- <img src="{{ asset('assets/charity') }}/img/avatars/1.png"
-                                        alt="Notification Image" class="rounded-circle" /> --}}
+                                         alt="Notification Image" class="rounded-circle" /> --}}
                                         <h6 class="mb-1">{{$notification->data['title']  }}</h6>
 
                                 </div>

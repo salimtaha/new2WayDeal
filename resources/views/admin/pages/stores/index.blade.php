@@ -31,35 +31,38 @@
         </div>
         <!-- Container-fluid Ends-->
 
-        <!-- Container-fluid starts-->
+
+
         <div class="container-fluid">
-            <div class="row ">
+            <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <form class="form-inline search-form search-box">
+                                <h3> المتاجر الموثقه</h3>
+                            </form>
+                            <div class="form-inline gap-2">
+                                <input type="date" id="filter-date" class="form-control mr-2">
+                                <button id="filter-button" class="btn btn-primary">تصفية حسب التاريخ</button>
+                            </div>
 
+                        </div>
                         <div class="card-body">
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            <div class="table-responsive table-desi">
-                                <table class="table all-package table-category " id="editableTable">
+                            <div class="table-responsive table-desi product-details">
+                                <table id="editableTable" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>أسم المتجر</th>
                                             <th>المحافظه</th>
                                             <th>المدينه</th>
+                                            <th>تاريخ الانضمام </th>
                                             <th>الصوره </th>
                                             <th>العمليات</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <!-- Data will be loaded here via DataTables -->
                                     </tbody>
                                 </table>
                             </div>
@@ -68,9 +71,6 @@
                 </div>
             </div>
         </div>
-        <!-- Container-fluid Ends-->
-
-
         {{-- delete --}}
         <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
@@ -101,25 +101,23 @@
 
 
     </div>
-</div>
+    </div>
 
 
 @endsection
 
 @push('js')
-
-
     <script type="text/javascript">
-        $(function() {
+        $(document).ready(function() {
             var table = $('#editableTable').DataTable({
-                lengthMenu: [
-                    [10, 25, 50, -1],
-                    [10, 25, 50, 'All']
-                ],
                 processing: true,
                 serverSide: true,
-                scrollCollapse: false,
-                ajax: "{{ Route('admin.stores.getallApproved') }}",
+                ajax: {
+                    url: "{{ route('admin.stores.getallApproved') }}",
+                    data: function(d) {
+                        d.date = $('#filter-date').val();
+                    }
+                },
                 columns: [
 
                     {
@@ -147,6 +145,11 @@
 
                     },
                     {
+                        data: 'created',
+                        name: 'created',
+
+                    },
+                    {
                         data: 'image',
                         name: 'image',
                         orderable: false,
@@ -161,20 +164,21 @@
                         searchable: false
                     }
 
-                ]
+                ],
             });
 
-        });
+            $('#filter-button').click(function() {
+                table.ajax.reload();
+            });
 
-        $('#editableTable tbody').on('click', '#deleteBtn', function(argument) {
-            var id = $(this).attr("data-id");
-            // console.log(id);
-            $('#deletemodal #id').val(id);
-        })
+            $('#editableTable tbody').on('click', '#deleteBtn', function() {
+                var id = $(this).attr("data-id");
+                $('#deletemodal #id').val(id);
+            });
+        });
     </script>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script> --}}
 @endpush
+
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
@@ -198,11 +202,11 @@
         }
 
         /* body {
-                font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                margin: 0;
-                padding: 0;
-            } */
+                    font-family: Arial, sans-serif;
+                    background-color: #f5f5f5;
+                    margin: 0;
+                    padding: 0;
+                } */
 
 
 

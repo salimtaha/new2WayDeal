@@ -24,10 +24,10 @@
             </div>
         </div>
     </div>
-    <div class="content-wrapper">
+    <div class="card">
 
         <!-- Main content -->
-        <section class="content">
+        {{-- <section class="content"> --}}
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary card-outline">

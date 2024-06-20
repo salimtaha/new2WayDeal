@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Mediator\Withdrawal;
 
 use App\Models\StoreRate;
 use App\Models\Withdrawal;
+use App\Notifications\Mediator\withdrawalStatusNotification;
 use Illuminate\Http\Request;
+use App\Models\WithdrawalSetting;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\WithdrawalSetting;
-use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Notification;
 
 class PendingWithdrawalController extends Controller
 {
@@ -76,7 +77,15 @@ class PendingWithdrawalController extends Controller
                 'mediator_id'=> auth('mediator')->user()->id,
             ]);
 
+            $store = $withdrawal->store;
+            $status = "تم سحب المبلغ بنجاح";
+            Notification::send($store , new withdrawalStatusNotification($withdrawal , $store , $status));
+
+
             session()->flash('success', ' تم خصم الرصيد من الحساب , الرجاء اتمام التحويل  ');
+            return redirect()->back();
+        }else{
+            session()->flash('success', 'تم معالجه العمليه  من قبل مسئول اخر');
             return redirect()->back();
         }
     }
@@ -88,6 +97,11 @@ class PendingWithdrawalController extends Controller
                 'status' => 'rejected',
                 'mediator_id'=> auth('mediator')->user()->id,
             ]);
+
+            $store = $withdrawal->store;
+            $status = "تم  رفض عمليه السحب لعدم مطابقه شروط السحب ";
+            Notification::send($store , new withdrawalStatusNotification($withdrawal , $store , $status));
+
             session()->flash('success', 'تم رفض عمليه السحب بنجاح ...');
         } else {
             session()->flash('failed', ' لا يمكن التعديل علي حاله عمليه السحب الحاليه ...');

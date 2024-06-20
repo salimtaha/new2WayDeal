@@ -183,6 +183,10 @@
 </div>
 <!-- Invoice 6 end -->
 
+
+@endsection
+
+
 @push('css')
 <link type="text/css" rel="stylesheet" href="{{ asset('assets/admin/invoces/bootstrab.main.css') }}">
 <link type="text/css" rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css">
@@ -204,6 +208,4 @@
 <script src="{{ asset('assets/admin/invoces/app.js') }}"></script>
 @endpush
 
-
-@endsection
 

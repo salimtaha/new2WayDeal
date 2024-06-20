@@ -36,7 +36,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <form class="form-inline search-form search-box">
-                            <h3>جميع المنتجات</h3>
+                            <h3> اداره الطلبات</h3>
                         </form>
                         <div class="form-inline gap-2">
                             <input type="date" id="filter-date" class="form-control mr-2">

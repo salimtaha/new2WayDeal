@@ -83,7 +83,9 @@
                             <th>اسم المنتج</th>
                             <th>الكميه</th>
                             <th>سعر النوع الواحد</th>
+                            <th>سعر الكميه</th>
                             <th> تاريخ الانتهاء</th>
+                            <th>  عرض المنتج</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,8 +94,17 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->product_name }}</td>
                                 <td>{{ $item->product_quantity }}</td>
-                                <td>{{ $item->product_price }}</td>
+                                <td>{{ $item->product_price }} (ج)</td>
+                                <td>{{ $item->product_price*$item->product_quantity }} (ج)</td>
                                 <td>{{ $item->expire_date }}</td>
+                                @if($item->product->id)
+                                <td><a class="btn btn-info" href="{{ route('admin.products.show' , $item->product->id) }}">عرض  <i class="fa fa-eye"></i> </a>
+                                </td>
+                                @else
+                                <td > غير متوفر
+                                </td>
+                                @endif
+
                             </tr>
                         @endforeach
                     </tbody>

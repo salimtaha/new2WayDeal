@@ -12,9 +12,9 @@ class RejectedWithdrawalController extends Controller
     public function index(Request $request)
     {
         $withdrawals = Withdrawal::with(['store', 'method'])
-        ->whereRelation('store', 'status', '=', 'approved')
+        // ->whereRelation('store', 'status', '=', 'approved')
         ->where('status', 'rejected')
-        ->where('mediator_id' , auth('mediator')->user()->id)
+        // ->where('mediator_id' , auth('mediator')->user()->id)
 
         ->when($request->search, function ($query) use ($request) {
             $query->where('status', 'rejected');
