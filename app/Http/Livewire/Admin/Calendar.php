@@ -23,7 +23,7 @@ class Calendar extends Component
         $input['start'] = $event['start'];
         Event::create($input);
 
-        return $this->redirect('/admin/welcome');
+        return $this->redirect('/admin/events/calendar');
     }
 
     public function eventDrop($event, $oldEvent)

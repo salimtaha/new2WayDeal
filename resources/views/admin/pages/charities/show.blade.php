@@ -170,7 +170,7 @@
                         <div class="form-group">
                             <p>متأكد من الحذف .. ؟؟</p>
                             @csrf
-                            <input type="hidden" name="id" id="id">
+                            <input type="hidden" name="id" id="id" value="{{ $charity->id }}">
                         </div>
 
                     </div>

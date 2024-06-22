@@ -13,15 +13,39 @@
 @endpush
 
 @section('body')
+<div class="container-fluid">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="page-header-left">
+                    <h3 style="color: rgb(236, 73, 73)">  المسئول : {{  $mediator->name }}
+                    </h3>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <ol class="breadcrumb pull-right">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('admin.welcome') }}">
+                            <i data-feather="home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item "> <a href="{{ route('admin.mediators.index') }}">مسئولي  السحب</a></li>
+                     <li class="breadcrumb-item active"> {{   $mediator->name }}</li>
+
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+
 <div class="row parent">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <span style="display: flex">
-                        @php
-                            $mediator = $withdrawals->first()->mediator
-                        @endphp
+
                         <form action="{{ route('admin.mediators.withdrawals' , $mediator->id) }}" method="POST">
                             @csrf
                             <input placeholder="ابحث هنا" class="input shadow-0" style="height: 35px; background:rgba(255, 255, 255, 0)"

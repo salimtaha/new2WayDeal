@@ -130,7 +130,7 @@ class CharityController extends Controller
 
     public function destroy(Request $request)
     {
-        return $request;
+
         try{
 
             $charity = Charity::findOrFail($request->id);

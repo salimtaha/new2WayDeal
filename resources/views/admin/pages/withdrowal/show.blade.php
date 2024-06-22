@@ -154,9 +154,9 @@
                                     <td>{{ $item->mediator->name }}</td>
                                     <td>
                                         <div class="invoice-btn-section clearfix d-print-none">
-                                            <a href="{{ route('admin.invoices.show', $item->id) }}"
+                                            <a href="{{ route('admin.mediators.withdrawals', $item->mediator->id) }}"
                                                 class="btn btn-lg btn-print">
-                                                عرض<i class="fa fa-eye"></i>
+                                                سحوبات المسئول
                                             </a>
 
                                         </div>

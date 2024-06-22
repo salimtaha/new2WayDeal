@@ -9,25 +9,48 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory , SoftDeletes;
+
+
+    protected $guarded = [];
+
     protected $casts = [
         'available_for' => 'datetime',
         'expire_date' => 'datetime',
     ];
+
+
+    public function scopeAvailable($query)
+    {
+        return $query->where('available_for', '>=', now()->format('Y-m-d'));
+    }
+
+    public function scopeNotexpired($query)
+    {
+        return $query->where('expire_date', '>=', now()->format('Y-m-d'));
+    }
+
     public function category()
     {
-        return $this->belongsTo(Category::class , 'category_id');
+        return $this->belongsTo(Category::class);
     }
-    public function orderItems()
+
+    public function store()
     {
-        return $this->hasMany(OrderDetail::class , 'product_id');
+        return $this->belongsTo(Store::class);
     }
 
     public function images()
     {
-        return $this->hasMany(ProductImage::class , 'product_id');
+        return $this->hasMany(ProductImage::class);
     }
-    public function store()
+
+    public function orders()
     {
-        return $this->belongsTo(Store::class , 'store_id');
+        return $this->hasMany(OrderDetail::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderDetail::class , 'product_id');
     }
 }

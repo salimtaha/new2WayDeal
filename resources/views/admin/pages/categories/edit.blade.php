@@ -88,7 +88,7 @@
 
                                         </div>
                                         <div class="modal-footer">
-                                            <button class="btn btn-primary" type="submit">Save</button>
+                                            <button class="btn btn-primary" type="submit">تحديث البيانات</button>
                                         </div>
                                     </form>
                                 </div>

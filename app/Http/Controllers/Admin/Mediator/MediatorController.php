@@ -82,7 +82,7 @@ class MediatorController extends Controller
             $query->orWhereRelation('method' , 'name' , 'LIKE' , '%'. $request->search.'%');
         })->where('mediator_id' , $id)->latest()->paginate(2);
 
-        return view('admin.pages.mediators.withdrawals.index' , compact('withdrawals'));
+        return view('admin.pages.mediators.withdrawals.index' , compact('withdrawals' , 'mediator'));
     }
 
     public function edit($id)
