@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +21,7 @@ class FavoriteFactory extends Factory
     {
         return [
             'user_id'=>User::inRandomOrder()->first()->id,
-            'product_id'=>Product::inRandomOrder()->first()->id,
+            'store_id'=>Store::inRandomOrder()->first()->id,
         ];
     }
 }

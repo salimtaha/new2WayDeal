@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('amount');
             $table->enum('status' , ['pending' , 'accepted' , 'rejected']);
             $table->timestamps();
+
         });
     }
 

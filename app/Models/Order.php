@@ -24,6 +24,7 @@ class Order extends Model
         }
     }
 
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id')->withTrashed();
@@ -39,6 +40,10 @@ class Order extends Model
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id');
+    }
+    public function products()
+    {
+        return $this->hasMany(OrderDetail::class , 'order_id');
     }
 
 

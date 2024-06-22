@@ -62,7 +62,7 @@ class CharityController extends Controller
     public function getallPending()
     {
 
-        $users = Charity::with(['governorate', 'city'])->where('status', 'pending')->select('*');
+        $users = Charity::with(['governorate', 'city'])->where('status', 'pending')->latest()->select('*');
 
         return DataTables::of($users)
             ->addIndexColumn()

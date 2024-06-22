@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('user_name');
+            $table->string('user_name')->default('userName');
             $table->string('password');
             $table->string('phone');
             $table->string('image')->default('default.jpg');
@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('health_approval_certificate')->default('default.jpg');
             $table->string('commercial_resturant_license')->default('default.jpg');
             $table->enum('status' , ['approved' , 'pending' , 'blocked'])->default('pending');
+            $table->string('otp')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

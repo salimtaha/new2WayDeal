@@ -9,7 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory , SoftDeletes;
-
+    protected $casts = [
+        'available_for' => 'datetime',
+        'expire_date' => 'datetime',
+    ];
     public function category()
     {
         return $this->belongsTo(Category::class , 'category_id');

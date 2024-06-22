@@ -71,7 +71,7 @@ class StoreController extends Controller
     public function getallPending()
     {
 
-        $users = Store::with(['governorate', 'city'])->where('status', 'pending')->select('*');
+        $users = Store::with(['governorate', 'city'])->where('status', 'pending')->select('*')->latest();
 
         return DataTables::of($users)
             ->addIndexColumn()
