@@ -73,7 +73,7 @@ class DonationAcceptedController extends Controller
         $donation = Donation::findOrFail($id);
         $donation->update(['status' => 'canceld']);
 
-        $status = " نعتذر لن نتمكن من ارسال وفد لاستلام التبرع";
+        $status =" نعتذر لن نتمكن من ارسال وفد لاستلام التبرع";
         $store = $donation->store;
         $charity = $donation->charity;
 

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Store;
 use App\Models\Setting;
+use App\Observers\StoreObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -57,5 +59,9 @@ class AppServiceProvider extends ServiceProvider
         view()->share([
             'setting'=>$setting,
         ]);
+
+        // amr
+        Store::observe(StoreObserver::class);
+
     }
 }

@@ -46,7 +46,26 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/charity.php'));
                 Route::middleware('web')
                 ->group(base_path('routes/mediator.php'));
+
+                // amr  modefied verified to apiverified
+                Route::middleware(['auth:sanctum','apiverified'])
+                ->prefix('api/me')
+                ->group(base_path('routes/user.php'));
+                Route::middleware(['auth:sanctum','apiverified','approved'])
+                ->prefix('api/seller')
+                ->group(base_path('routes/seller.php'));
+
         });
+
+
+
+
+
+
+
+
+
+
     }
 
     /**
@@ -58,6 +77,29 @@ class RouteServiceProvider extends ServiceProvider
     {
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
+        RateLimiter::for('login', function (Request $request) {
+            return Limit::perMinute(3)->by($request->ip());
+        });
+
+        RateLimiter::for('register', function (Request $request) {
+            return Limit::perMinute(3)->by($request->ip());
+        });
+
+        RateLimiter::for('verify', function (Request $request) {
+            return Limit::perHour(5)->by($request->ip());
+        });
+
+        RateLimiter::for('reset', function (Request $request) {
+            return Limit::perHour(500)->by($request->ip());
+        });
+
+        RateLimiter::for('otp', function (Request $request) {
+            return Limit::perHour(500)->by($request->ip());
+        });
+
+        RateLimiter::for('change', function (Request $request) {
+            return Limit::perHour(500)->by($request->ip());
         });
     }
 }

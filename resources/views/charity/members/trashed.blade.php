@@ -91,9 +91,7 @@
                 columnDefs: [
                 { width: "2%", targets: 2 } // Adjust the width of the third column (index 2)
             ],
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Arabic.json'
-            }
+
 
             });
 

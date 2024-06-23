@@ -341,11 +341,7 @@
                         data-feather="bell"></i><span>الاشعارات </span>
                 </a>
             </li>
-            <li>
-                <a class="sidebar-header" href="reports.html"><i
-                        data-feather="bar-chart"></i><span>التقارير</span>
-                </a>
-            </li>
+
 
 
             <li>

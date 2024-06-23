@@ -50,10 +50,10 @@ class Store extends Authenticatable
         return $this->hasMany(Product::class , 'store_id');
     }
 
-    public function notifications()
-    {
-        return $this->hasMany(Alert::class , 'store_id');
-    }
+    // public function notifications()
+    // {
+    //     return $this->hasMany(Alert::class , 'store_id');
+    // }
 
     public function donations()
     {

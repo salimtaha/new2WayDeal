@@ -67,5 +67,9 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'check.charity.status' =>CheckCharityStatus::class,
         'charity.status.approved'=>CharityStatusApproved::class,
+
+        // amr
+        'apiverified' => \App\Http\Middleware\Verified::class,
+        'approved' => \App\Http\Middleware\Approved::class,
     ];
 }
